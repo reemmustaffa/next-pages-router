@@ -1,4 +1,13 @@
-export default function Cabins() {
+import CabinList from "@/components/CabinList";
+import { getCabins } from "@/lib/data-service";
+
+//داعشان  يخلي الداتا تسدعي في server side
+//staticlly generated (SSG)
+export async function getStaticProps() {
+  const cabins = await getCabins();
+  return { props: { cabins } };
+}
+export default function Cabins({ cabins }) {
   return (
     <div>
       <h1 className="text-4xl mb-5 text-accent-400 font-medium">
@@ -12,6 +21,7 @@ export default function Cabins() {
         home away from home. The perfect spot for a peaceful, calm vacation.
         Welcome to paradise.
       </p>
+      <CabinList cabins={cabins} />
     </div>
   );
 }
